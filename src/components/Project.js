@@ -71,17 +71,22 @@ const ProjectsSection = styled.section`
   }
 
   /* Optional: adjust font sizes for mobile */
-  @media (max-width: 480px) {
-    h2 {
-      font-size: 2rem;
-    }
-    .card h3 {
-      font-size: 1.1rem;
-    }
-    .card p {
-      font-size: 0.9rem;
-    }
+@media (max-width: 768px) {
+  h2 {
+    font-size: 2rem;
   }
+  .card {
+    max-width: 90%;    /* make the card almost full width */
+    padding: 2.5rem;  /* more space inside the card */
+  }
+  .card h3 {
+    font-size: 1.2rem;
+  }
+  .card p {
+    font-size: 1rem;
+  }
+}
+
 `;
 const settings = {
   dots: true,
