@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Slider from "react-slick";
 
 const ProjectsSection = styled.section`
   padding: 5rem 2rem;
@@ -14,10 +13,12 @@ const ProjectsSection = styled.section`
     color: #00d4ff;
   }
 
- .slick-slide {
-  padding: 0 0.5rem; /* small spacing between slides */
-  box-sizing: border-box;
-}
+  .projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; /* spacing between cards */
+    align-items: center;
+  }
 
   .card {
     background: rgba(255, 255, 255, 0.08);
@@ -25,14 +26,12 @@ const ProjectsSection = styled.section`
     backdrop-filter: blur(12px);
     border-radius: 15px;
     padding: 2rem;
-    width: 100%;          /* Make width dynamic */
-    max-width: 320px;  
-     margin: 0 auto;  
+    width: 100%;
+    max-width: 600px; /* make it wider for better readability */
     box-sizing: border-box;
     color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -42,14 +41,14 @@ const ProjectsSection = styled.section`
   }
 
   .card h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #00e676;
     margin-bottom: 0.8rem;
   }
 
   .card p {
     flex: 1;
-    font-size: 0.95rem;
+    font-size: 1rem;
     margin-bottom: 1rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
@@ -64,51 +63,28 @@ const ProjectsSection = styled.section`
   .tag {
     background: rgba(0, 212, 255, 0.15);
     color: #00d4ff;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-weight: 500;
   }
 
-  /* Optional: adjust font sizes for mobile */
-@media (max-width: 768px) {
-  h2 {
-    font-size: 2rem;
-  }
-  .card {
-    max-width: 200% !important; 
-    height:20% !important   /* make the card almost full width */
-    padding: 2.5rem;  /* more space inside the card */
-  }
-  .card h3 {
-    font-size: 1.2rem;
-  }
-  .card p {
-    font-size: 1rem;
-  }
-}
-
-`;
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  arrows: true,  // optional: show arrows only on desktop
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: { slidesToShow: 2, arrows: true }
-    },
-    {
-      breakpoint: 768,
-      settings: { slidesToShow: 1, arrows: false } // hide arrows on mobile
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 2rem;
     }
-  ]
-};
-
-
+    .card {
+      max-width: 90%; /* almost full width on mobile */
+      padding: 2rem;
+    }
+    .card h3 {
+      font-size: 1.3rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+    }
+  }
+`;
 
 const Projects = () => {
   const projects = [
@@ -149,46 +125,24 @@ const Projects = () => {
     },
   ];
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 }
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 1 }
-      }
-    ]
-  };
-
   return (
     <ProjectsSection id="projects">
       <h2>Projects</h2>
-      <Slider {...settings}>
+      <div className="projects-container">
         {projects.map((p, i) => (
-          <div key={i}> {/* Do NOT use display:flex here */}
-            <div className="card">
-              <h3>{p.name}</h3>
-              <p>{p.desc}</p>
-              <div className="tags">
-                {p.tags.map((tag, j) => (
-                  <span className="tag" key={j}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
+          <div className="card" key={i}>
+            <h3>{p.name}</h3>
+            <p>{p.desc}</p>
+            <div className="tags">
+              {p.tags.map((tag, j) => (
+                <span className="tag" key={j}>
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
         ))}
-      </Slider>
-
-
+      </div>
     </ProjectsSection>
   );
 };
