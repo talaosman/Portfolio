@@ -6,7 +6,7 @@ import Experience from "./components/Experience";
 import Projects from "./components/Project";
 import Skills from "./components/Skills";
 import Volunteer from "./components/Volunteer";
-import Contact from "./components/Contact";
+
 import Footer from "./components/Footer";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -22,7 +22,7 @@ function App() {
       <Projects />
       <Skills />
       <Volunteer />
-      {/* <Contact /> */}
+
       <Footer />
     </>
   );

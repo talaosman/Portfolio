@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import {
-  FaReact, FaJava, FaPhp, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
-  FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
-  FaAdobe, FaCogs, FaCode, FaWindows
+  FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
+  FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma, FaCogs, FaCode, FaWindows
 } from "react-icons/fa";
 
 import {
