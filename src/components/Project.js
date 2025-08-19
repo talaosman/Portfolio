@@ -76,7 +76,8 @@ const ProjectsSection = styled.section`
     font-size: 2rem;
   }
   .card {
-    max-width: 90%;    /* make the card almost full width */
+    max-width: 200% !important; 
+    height:20% !important   /* make the card almost full width */
     padding: 2.5rem;  /* more space inside the card */
   }
   .card h3 {
