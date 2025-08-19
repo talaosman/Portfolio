@@ -26,7 +26,9 @@ const ProjectsSection = styled.section`
     backdrop-filter: blur(12px);
     border-radius: 15px;
     padding: 2rem;
-    width: 300px;
+    width: 100%;          /* Make width dynamic */
+    max-width: 320px;     /* Limit maximum width */
+    box-sizing: border-box;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -67,7 +69,39 @@ const ProjectsSection = styled.section`
     border-radius: 20px;
     font-weight: 500;
   }
+
+  /* Optional: adjust font sizes for mobile */
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 2rem;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+    }
+    .card p {
+      font-size: 0.9rem;
+    }
+  }
 `;
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  arrows: true,  // optional: show arrows only on desktop
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: { slidesToShow: 2, arrows: true }
+    },
+    {
+      breakpoint: 768,
+      settings: { slidesToShow: 1, arrows: false } // hide arrows on mobile
+    }
+  ]
+};
+
 
 
 const Projects = () => {
@@ -132,19 +166,22 @@ const Projects = () => {
       <h2>Projects</h2>
       <Slider {...settings}>
         {projects.map((p, i) => (
-          <div className="card" key={i}>
-            <h3>{p.name}</h3>
-            <p>{p.desc}</p>
-            <div className="tags">
-              {p.tags.map((tag, j) => (
-                <span className="tag" key={j}>
-                  {tag}
-                </span>
-              ))}
+          <div key={i} style={{ display: "flex", justifyContent: "center" }}>
+            <div className="card">
+              <h3>{p.name}</h3>
+              <p>{p.desc}</p>
+              <div className="tags">
+                {p.tags.map((tag, j) => (
+                  <span className="tag" key={j}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
       </Slider>
+
     </ProjectsSection>
   );
 };
