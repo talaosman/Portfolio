@@ -14,11 +14,10 @@ const ProjectsSection = styled.section`
     color: #00d4ff;
   }
 
-  .slick-slide {
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-  }
+ .slick-slide {
+  padding: 0 0.5rem; /* small spacing between slides */
+  box-sizing: border-box;
+}
 
   .card {
     background: rgba(255, 255, 255, 0.08);
@@ -27,7 +26,8 @@ const ProjectsSection = styled.section`
     border-radius: 15px;
     padding: 2rem;
     width: 100%;          /* Make width dynamic */
-    max-width: 320px;     /* Limit maximum width */
+    max-width: 320px;  
+     margin: 0 auto;  
     box-sizing: border-box;
     color: #fff;
     display: flex;
@@ -166,7 +166,7 @@ const Projects = () => {
       <h2>Projects</h2>
       <Slider {...settings}>
         {projects.map((p, i) => (
-          <div key={i} style={{ display: "flex", justifyContent: "center" }}>
+          <div key={i}> {/* Do NOT use display:flex here */}
             <div className="card">
               <h3>{p.name}</h3>
               <p>{p.desc}</p>
@@ -181,6 +181,7 @@ const Projects = () => {
           </div>
         ))}
       </Slider>
+
 
     </ProjectsSection>
   );
