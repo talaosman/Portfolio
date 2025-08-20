@@ -3,7 +3,7 @@ import GlobalStyle from "./globalStyles";
 import Header from "./components/Header";
 import About from "./components/About";
 import Experience from "./components/Experience";
-import Projects from "./components/Project";
+import ProjectsList from "./components/Project";
 import Skills from "./components/Skills";
 import Volunteer from "./components/Volunteer";
 
@@ -19,7 +19,7 @@ function App() {
       <Header />
       <About />
       <Experience />
-      <Projects />
+      <ProjectsList />
       <Skills />
       <Volunteer />
 
