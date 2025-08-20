@@ -15,7 +15,7 @@ const ProjectsSection = styled.section`
 
   .projects-container {
     display: flex;
-    flex-wrap: wrap; /* allow wrapping to next line */
+    flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
   }
@@ -58,6 +58,7 @@ const ProjectsSection = styled.section`
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .tag {
@@ -69,9 +70,27 @@ const ProjectsSection = styled.section`
     font-weight: 500;
   }
 
+  .demo-btn, .repo-btn {
+    display: inline-block;
+    background: #00d4ff;
+    color: #0f0f1a;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 0.5rem;
+  }
+
+  .demo-btn:hover, .repo-btn:hover {
+    background: #00e676;
+    transform: scale(1.05);
+  }
+
   @media (max-width: 768px) {
     .projects-container {
-      flex-direction: column; /* stack cards vertically */
+      flex-direction: column;
       align-items: center;
     }
 
@@ -86,9 +105,9 @@ const ProjectsList = () => {
     { name: "Course Management System", desc: "Java program that allows students to manage university courses with CSV storage.", tags: ["Java", "CSV"] },
     { name: "University Website", desc: "Responsive website with faculties, events, campuses, admissions, and signup.", tags: ["HTML", "CSS", "Bootstrap", "JavaScript"] },
     { name: "Medical Center Management", desc: "JavaFX system with secure login, patient file management, appointments, and staff data.", tags: ["JavaFX", "Database"] },
-    { name: "Travel Booking Website", desc: "Responsive city tour guide with feedback forms and cross-device accessibility.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"] },
-    { name: "Rent House Web/Mobile App", desc: "Full-stack rental platform with Spring Boot APIs, Stripe payments, Google/GitHub login, and React Native mobile app.", tags: ["React", "Spring Boot", "Stripe", "React Native"] },
-    { name: "Delivery App", desc: "Laravel-based delivery platform with payments, GPS tracking, chat, and multi-role access.", tags: ["Laravel", "JavaScript", "Stripe", "Firebase"] },
+    { name: "Travel Booking Website", desc: "Responsive city tour guide with feedback forms and cross-device accessibility.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"], demo: "https://travelbookingcity.netlify.app" },
+    { name: "Rent House Web/Mobile App", desc: "Full-stack rental platform with Spring Boot APIs, Stripe payments, Google/GitHub login, and React Native mobile app.", tags: ["React", "Spring Boot", "Stripe", "React Native"],repo: "https://github.com/talaosman/Rental-House-website" },
+    { name: "Delivery App", desc: "Laravel-based delivery platform with payments, GPS tracking, chat, and multi-role access.", tags: ["Laravel", "JavaScript", "Stripe", "Firebase"], repo: "https://github.com/talaosman/DeliveryApp" },
     { name: "Teacher Management System", desc: "C++ OOP project for managing university teachers, schedules, and feedback.", tags: ["C++", "OOP", "Pointers"] },
   ];
 
@@ -105,6 +124,16 @@ const ProjectsList = () => {
                 <span className="tag" key={j}>{tag}</span>
               ))}
             </div>
+            {p.demo && (
+              <a href={p.demo} target="_blank" rel="noopener noreferrer" className="demo-btn">
+                Live Demo
+              </a>
+            )}
+            {p.repo && (
+              <a href={p.repo} target="_blank" rel="noopener noreferrer" className="repo-btn">
+                GitHub Repo
+              </a>
+            )}
           </div>
         ))}
       </div>
