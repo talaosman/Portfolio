@@ -49,9 +49,9 @@ const VolunteerSection = styled.section`
 const Volunteer = () => (
   <VolunteerSection id="volunteer">
     <h2>Volunteer & Extracurricular</h2>
-    <div className="cards">
+    <div className="cards"> 
       <div className="card">
-        <h3>يد الأمير مؤسسة</h3>
+        <h3>الأمير مجيدارسلان مؤسسة </h3>
         <p>Inputting & organizing client data to provide free medical care</p>
         <p>05/2022 – 03/2022, Choueifat, Lebanon</p>
       </div>

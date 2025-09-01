@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FaDownload } from "react-icons/fa";
+import { FaDownload, FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 import cvFile from "../assets/Tala-Osman-FlowCV-Resume-20250818.pdf";
 import profile from "../assets/Profile.jpeg";
 
@@ -59,6 +59,23 @@ const HeaderSection = styled.section`
 
     a {
       color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  .socials {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+
+    a {
+      color: #00aaff;
+      font-size: 1.6rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #00ffcc;
+      }
     }
   }
 `;
@@ -73,6 +90,14 @@ const Header = () => (
         <FaDownload /> Download CV
       </a>
     </button>
+
+    {/* Social Links */}
+    <div className="socials">
+      <a href="mailto:talawww@hotmail.com"><FaEnvelope /></a>
+      <a href="https://github.com/talaosman" target="_blank" rel="noreferrer"><FaGithub /></a>
+      <a href="https://www.linkedin.com/in/tala-osman-380412368" target="_blank" rel="noreferrer"><FaLinkedin /></a>
+      <a href="https://www.instagram.com/talaosman._" target="_blank" rel="noreferrer"><FaInstagram /></a>
+    </div>
   </HeaderSection>
 );
 
