@@ -25,7 +25,6 @@ function App() {
       {loading ? (
         <div className="loader-container fade-in">
           <div className="loader-content">
-            <h1 className="loader-title">Tala Osman</h1>
             <div className="loading-bar">
               <div className="progress"></div>
             </div>
