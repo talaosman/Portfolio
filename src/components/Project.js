@@ -23,9 +23,10 @@ const CarouselWrapper = styled.div`
 
 const CarouselTrack = styled.div`
   display: flex;
-  transition: transform 0.5s ease;
-  transform: translateX(${({ translate }) => translate}px);
+  transition: transform 0.4s ease;
+  transform: translateX(${({ index, visible }) => -(index * (100 / visible))}%);
 `;
+
 
 const Card = styled.div`
   flex: 0 0 33.333%;
@@ -141,7 +142,7 @@ const ProjectsList = () => {
   }, []);
 
   const maxIndex = projects.length - visible;
-  const cardWidth = 1200 / visible;
+  
 
   return (
     <ProjectsSection id="projects">
@@ -151,7 +152,7 @@ const ProjectsList = () => {
         {index > 0 && <Arrow left onClick={() => setIndex(index - 1)}>‹</Arrow>}
         {index < maxIndex && <Arrow onClick={() => setIndex(index + 1)}>›</Arrow>}
 
-        <CarouselTrack translate={-index * cardWidth}>
+        <CarouselTrack index={index} visible={visible}>
           {projects.map((p, i) => (
             <Card key={i}>
               <div className="inner">
