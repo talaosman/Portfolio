@@ -105,7 +105,7 @@ const Arrow = styled.button`
   height: 42px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: -0.3;
+  z-index: 10;
 
   ${({ left }) => (left ? "left: -20px;" : "right: -20px;")}
 
