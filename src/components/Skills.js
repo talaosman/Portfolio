@@ -7,8 +7,9 @@ import {
 } from "react-icons/fa"; 
 import {
   SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
-  SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle
-} from "react-icons/si"; 
+  SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle,
+  SiAzuredevops
+} from "react-icons/si";
 import { GiBrain } from "react-icons/gi"; 
 
 const SkillsSection = styled.section`
@@ -115,7 +116,7 @@ const Skills = () => {
     { name: "MySQL", icon: <SiMysql /> },
     { name: "Oracle DB", icon: <SiOracle /> },
     { name: "MongoDB", icon: <SiMongodb /> },
-    { name: "Azure", icon: <FaMicrosoft /> },
+    { name: "Azure DevOps", icon: <SiAzuredevops /> },
     { name: "Windows", icon: <FaWindows /> },
     { name: "Figma", icon: <FaFigma /> }, // Already included
     { name: "Photoshop", icon: <SiAdobephotoshop /> },
