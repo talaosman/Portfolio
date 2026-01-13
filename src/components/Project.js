@@ -107,7 +107,7 @@ const Arrow = styled.button`
   cursor: pointer;
   z-index: 10;
 
-  ${({ left }) => (left ? "left: -20px;" : "right: -20px;")}
+  ${({ left }) => (left ? "left: -0.3px;" : "right: -0.3px;")}
 
   &:hover {
     background: #00e676;
