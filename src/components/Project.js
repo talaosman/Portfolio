@@ -115,16 +115,14 @@ const Arrow = styled.button`
   }
 `;
 
-const ProjectsList = () => {
-  const projects = [
-    { name: "Course Management System", desc: "Java program with CSV storage.", tags: ["Java", "CSV"] },
-    { name: "University Website", desc: "Responsive university website.", tags: ["HTML", "CSS", "JS"] },
-    { name: "Medical Center Management", desc: "JavaFX medical system.", tags: ["JavaFX", "Database"], repo: "https://github.com/talaosman/Medical-Center-Management" },
-    { name: "Travel Booking Website", desc: "City tour booking platform.", tags: ["HTML", "CSS", "Bootstrap"], demo: "https://travelbookingcity.netlify.app" },
-    { name: "Rent House App", desc: "Full-stack rental app.", tags: ["React", "Spring Boot"], repo: "https://github.com/talaosman/Rental-House-website" },
-    { name: "Delivery App", desc: "Laravel delivery system.", tags: ["Laravel", "Stripe"], repo: "https://github.com/talaosman/DeliveryApp" },
-    { name: "Teacher Management System", desc: "C++ OOP system.", tags: ["C++", "OOP"] },
-  ];
+const ProjectsList = () => { const projects = [ { name: "Course Management System", desc: "Java program that allows students to manage university courses with CSV storage.", tags: ["Java", "CSV"] },
+                                                { name: "University Website", desc: "Responsive website with faculties, events, campuses, admissions, and signup.", tags: ["HTML", "CSS", "Bootstrap", "JavaScript"] }, 
+                                                { name: "Medical Center Management", desc: "JavaFX system with secure login, patient file management, appointments, and staff data.", tags: ["JavaFX", "Database"], repo:"https://github.com/talaosman/Medical-Center-Management"}, 
+                                                { name: "Travel Booking Website", desc: "Responsive city tour guide with feedback forms and cross-device accessibility.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"], demo: "https://travelbookingcity.netlify.app" }, 
+                                                { name: "Rent House Web/Mobile App", desc: "Full-stack rental platform with Spring Boot APIs, Stripe payments, Google/GitHub login, AI-powered chatbot integration using RAG for intelligent responses, and React Native mobile app.", tags: ["React", "Spring Boot", "Stripe", "React Native"],repo: "https://github.com/talaosman/Rental-House-website" }, 
+                                                { name: "Delivery App", desc: "Laravel-based delivery platform with payments, GPS tracking, chat, and multi-role access.", tags: ["Laravel", "JavaScript", "Stripe", "Firebase"], repo: "https://github.com/talaosman/DeliveryApp" }, 
+                                                { name: "Teacher Management System", desc: "C++ OOP project for managing university teachers, schedules, and feedback.", tags: ["C++", "OOP", "Pointers"] }, 
+                                              ];
 
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(3);
