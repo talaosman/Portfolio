@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
   FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
-  FaCogs, FaCode, FaWindows, FaMicrosoft 
+  FaCogs, FaCode, FaWindows,  
 } from "react-icons/fa"; 
 import {
   SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
