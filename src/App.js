@@ -2,21 +2,20 @@ import React, { useState, useEffect } from "react";
 import GlobalStyle from "./globalStyles";
 import Header from "./components/Header";
 import About from "./components/About";
-import Experience from "./components/Experience";
+import Experience from "./components/Project";
 import ProjectsList from "./components/Project";
 import Skills from "./components/Skills";
 import Volunteer from "./components/Volunteer";
 import Footer from "./components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./components/Loader.css"; 
+import "./components/Loader.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time or wait for resources
-    const timer = setTimeout(() => setLoading(false), 2000);
+    const timer = setTimeout(() => setLoading(false), 2500); // slightly longer than animation
     return () => clearTimeout(timer);
   }, []);
 
@@ -25,10 +24,11 @@ function App() {
       {loading ? (
         <div className="loader-container fade-in">
           <div className="loader-content">
+            <h1 className="loader-title">Loading</h1>
             <div className="loading-bar">
               <div className="progress"></div>
             </div>
-          <p className="loading-text">Loading...</p>
+            <p className="loading-text">Preparing your portfolio...</p>
           </div>
         </div>
       ) : (
