@@ -24,11 +24,11 @@ function App() {
       {loading ? (
         <div className="loader-container fade-in">
           <div className="loader-content">
-            <h1 className="loader-title">Loading</h1>
+            <h1 className="loader-title"></h1>
             <div className="loading-bar">
               <div className="progress"></div>
             </div>
-            <p className="loading-text">Preparing your portfolio...</p>
+            <p className="loading-text">Loading...</p>
           </div>
         </div>
       ) : (
