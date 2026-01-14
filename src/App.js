@@ -28,7 +28,6 @@ function App() {
             <div className="loading-bar">
               <div className="progress"></div>
             </div>
-            <p className="loading-text">Loading...</p>
           </div>
         </div>
       ) : (
