@@ -5,7 +5,7 @@
   width: 15px;
   height: 15px;
   background: #00bfff;
-  border-radius: 50%; /* make it a circle, remove if you want square */
+  border-radius: 50%; /* circle */
   cursor: pointer;
   z-index: 1000;
 
