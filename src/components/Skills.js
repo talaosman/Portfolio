@@ -3,12 +3,11 @@ import styled from "styled-components";
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
   FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
-  FaCogs, FaCode, FaWindows
+  FaCogs, FaCode, FaWindows, FaMicrosoft 
 } from "react-icons/fa"; 
 import {
   SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
   SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle,
-  SiAzuredevops
 } from "react-icons/si";
 import { GiBrain } from "react-icons/gi"; 
 
@@ -116,7 +115,7 @@ const Skills = () => {
     { name: "MySQL", icon: <SiMysql /> },
     { name: "Oracle DB", icon: <SiOracle /> },
     { name: "MongoDB", icon: <SiMongodb /> },
-    { name: "Azure DevOps", icon: <SiAzuredevops /> },
+    { name: "Azure DevOps", icon: <FaMicrosoft /> },
     { name: "Windows", icon: <FaWindows /> },
     { name: "Figma", icon: <FaFigma /> }, // Already included
     { name: "Photoshop", icon: <SiAdobephotoshop /> },
