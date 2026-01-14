@@ -7,10 +7,11 @@ import ProjectsList from "./components/Project";
 import Skills from "./components/Skills";
 import Volunteer from "./components/Volunteer";
 import Footer from "./components/Footer";
+import { FaArrowUp } from "react-icons/fa"; // Up arrow icon
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./components/Loader.css"; 
-import "./components/ScrollTop.css"; // flash button CSS
+import "./components/Loader.css";
+import "./components/ScrollTop.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Show button after scrolling 300px
+  // Show scroll button after 300px
   useEffect(() => {
     const handleScroll = () => {
       setShowScroll(window.scrollY > 300);
@@ -55,12 +56,12 @@ function App() {
           <Skills />
           <Volunteer />
           <Footer />
-
-         {showScroll && (
-        <div className="scroll-top" onClick={scrollToTop}>
-        <div className="flash-fill"></div>
-        </div>
-        )}
+          
+          {showScroll && (
+            <div className="scroll-top" onClick={scrollToTop}>
+              <FaArrowUp style={{ color: "#00bfff", fontSize: "20px" }} />
+            </div>
+          )}
         </div>
       )}
     </>
