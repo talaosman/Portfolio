@@ -2,20 +2,29 @@
   position: fixed;
   bottom: 40px;
   right: 40px;
-  width: 15px;
-  height: 15px;
-  background: #00bfff;
-  border-radius: 50%; /* circle */
+  width: 20px;
+  height: 40px; /* taller for upward fill */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   cursor: pointer;
-  z-index: 1000;
-
-  /* Flash animation */
-  animation: flash 1s infinite alternate;
-  box-shadow: 0 0 15px #00bfff;
+  overflow: hidden;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 
-@keyframes flash {
-  0% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-  100% { opacity: 0.2; transform: scale(1); }
+/* inner fill that flashes upward */
+.flash-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #00bfff, #0077ff);
+  position: absolute;
+  bottom: -100%; /* start outside the bottom */
+  animation: flashUp 1s infinite alternate;
+  border-radius: 10px;
+}
+
+@keyframes flashUp {
+  0% { bottom: -100%; }
+  50% { bottom: 0; }  /* fills the whole container */
+  100% { bottom: -100%; }
 }
