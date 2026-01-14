@@ -56,8 +56,11 @@ function App() {
           <Volunteer />
           <Footer />
 
-          {/* Flash scroll button */}
-          {showScroll && <div className="scroll-top" onClick={scrollToTop}></div>}
+         {showScroll && (
+        <div className="scroll-top" onClick={scrollToTop}>
+        <div className="flash-fill"></div>
+        </div>
+        )}
         </div>
       )}
     </>
