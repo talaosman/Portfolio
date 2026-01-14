@@ -59,13 +59,10 @@ function App() {
           <Skills />
           <Volunteer />
           <Footer />
-
-          {showScroll && (
-            <button className="scroll-top" onClick={scrollToTop}>
-              ↑ Top
-            </button>
-          )}
-        </div>
+      {showScroll && (
+  <div className="scroll-top" onClick={scrollToTop}></div>
+      )}
+       </div>
       )}
     </>
   );
