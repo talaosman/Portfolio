@@ -2,22 +2,41 @@ import React, { useState, useEffect } from "react";
 import GlobalStyle from "./globalStyles";
 import Header from "./components/Header";
 import About from "./components/About";
-import Experience from "./components/Project";
+import Experience from "./components/Experience";
 import ProjectsList from "./components/Project";
 import Skills from "./components/Skills";
 import Volunteer from "./components/Volunteer";
 import Footer from "./components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./components/Loader.css";
+import "./components/Loader.css"; 
+import "./components/ScrollTop.css"; // new CSS for scroll button
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2500); // slightly longer than animation
+    const timer = setTimeout(() => setLoading(false), 2500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Handle scroll button visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <>
@@ -40,6 +59,12 @@ function App() {
           <Skills />
           <Volunteer />
           <Footer />
+
+          {showScroll && (
+            <button className="scroll-top" onClick={scrollToTop}>
+              ↑ Top
+            </button>
+          )}
         </div>
       )}
     </>
