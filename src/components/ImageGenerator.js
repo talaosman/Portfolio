@@ -21,7 +21,7 @@ function ImageGenerator() {
     setLoading(true);
 
     try {
-      const response = await axios.post("/api/generate", { prompt });
+      const response = await axios.post("/.netlify/functions/generate", { prompt });
       setImageUrl(response.data.image);
 
       // Increment click count after successful generation
