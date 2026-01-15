@@ -188,8 +188,8 @@ const ProjectsList = () => {
   },
   {
     name: "AI Image Generator",
-    desc: "Python AI system converting text prompts into images via deep learning, exposed through an API and integrated into React for real-time generation.",
-    tags: ["React", "Python", "AI", "API"]
+    desc: "AI system converting text prompts into images via deep learning, exposed through an API and integrated into React for real-time generation.",
+    tags: ["React", "AI", "API"]
   },
   {
     name: "University Website",
