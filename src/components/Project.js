@@ -286,8 +286,8 @@ const ProjectsList = () => {
 
       {/* AI Generator button ONLY */}
       {p.name === "AI Image Generator" && (
-        <ActionButton onClick={() => setModalOpen(true)}>
-          Try AI Generator
+        <ActionButton onClick={() => handleCardClick(p.name)}>
+           Try AI Generator
         </ActionButton>
       )}
       </div>
