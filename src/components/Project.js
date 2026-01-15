@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import ImageGenerator from "./ImageGenerator"; // Your AI generator
 
+// ----- Styled Components -----
 const ProjectsSection = styled.section`
   padding: 5rem 2rem;
   background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
@@ -27,11 +29,11 @@ const CarouselTrack = styled.div`
   transform: translateX(${({ index, visible }) => -(index * (100 / visible))}%);
 `;
 
-
 const Card = styled.div`
   flex: 0 0 33.333%;
   padding: 1rem;
   box-sizing: border-box;
+  cursor: pointer;
 
   @media (max-width: 1024px) {
     flex: 0 0 50%;
@@ -51,6 +53,11 @@ const Card = styled.div`
     color: #fff;
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
   }
 
   h3 {
@@ -115,17 +122,116 @@ const Arrow = styled.button`
   }
 `;
 
-const ProjectsList = () => { const projects = [ { name: "Course Management System", desc: "Java program that allows students to manage university courses with CSV storage.", tags: ["Java", "CSV"] },
-                                                { name: "University Website", desc: "Responsive website with faculties, events, campuses, admissions, and signup.", tags: ["HTML", "CSS", "Bootstrap", "JavaScript"] }, 
-                                                { name: "Medical Center Management", desc: "JavaFX system with secure login, patient file management, appointments, and staff data.", tags: ["JavaFX", "Database"], repo:"https://github.com/talaosman/Medical-Center-Management"}, 
-                                                { name: "Travel Booking Website", desc: "Responsive city tour guide with feedback forms and cross-device accessibility.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"], demo: "https://travelbookingcity.netlify.app" }, 
-                                                { name: "Rent House Web/Mobile App", desc: "Full-stack rental platform with Spring Boot APIs, Stripe payments, Google/GitHub login, AI-powered chatbot integration using RAG for intelligent responses, and React Native mobile app.", tags: ["React", "Spring Boot", "Stripe", "React Native"],repo: "https://github.com/talaosman/Rental-House-website" }, 
-                                                { name: "Delivery App", desc: "Laravel-based delivery platform with payments, GPS tracking, chat, and multi-role access.", tags: ["Laravel", "JavaScript", "Stripe", "Firebase"], repo: "https://github.com/talaosman/DeliveryApp" }, 
-                                                { name: "Teacher Management System", desc: "C++ OOP project for managing university teachers, schedules, and feedback.", tags: ["C++", "OOP", "Pointers"] }, 
-                                              ];
+// Modal styles
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const ModalContent = styled.div`
+  background: #1a1a2e;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 900px;
+  width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  position: relative;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #00d4ff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+
+  &:hover {
+    background: #00e676;
+  }
+`;
+const ActionButton = styled.button`
+  background: #00e676;
+  color: #0f0f1a;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background: #00d4ff;
+  }
+`;
+
+
+// ----- Main Component -----
+const ProjectsList = () => {
+ const projects = [
+  {
+    name: "Course Management System",
+    desc: "Java program for managing university courses with CSV-based data storage, supporting efficient student operations and modular design.",
+    tags: ["Java", "CSV"]
+  },
+  {
+    name: "AI Image Generator",
+    desc: "Python AI system converting text prompts into images via deep learning, exposed through an API and integrated into React for real-time generation.",
+    tags: ["React", "Python", "AI", "API"]
+  },
+  {
+    name: "University Website",
+    desc: "Responsive website presenting faculties, events, campuses, and admissions, with a user-friendly sign-up interface and mobile-friendly design.",
+    tags: ["HTML", "CSS", "Bootstrap", "JavaScript", "Media Queries"]
+  },
+  {
+    name: "Medical Center Management",
+    desc: "Desktop software with secure login, role-based access, and database management of patients, staff, and appointments.",
+    tags: ["Java", "JavaFX", "Database"],
+    repo: "https://github.com/talaosman/Medical-Center-Management"
+  },
+  {
+    name: "Travel Booking Website",
+    desc: "Cross-device city tour guide platform with destination info, feedback forms, and clean responsive UI.",
+    tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
+    demo: "https://travelbookingcity.netlify.app"
+  },
+  {
+    name: "Rent House Web/Mobile App",
+    desc: "Full-stack rental platform with React and Spring Boot, Stripe payments, Google/GitHub login, AI chatbot (RAG), and React Native mobile app.",
+    tags: ["React", "Spring Boot", "Stripe", "React Native"],
+    repo: "https://github.com/talaosman/Rental-House-website"
+  },
+  {
+    name: "Delivery App",
+    desc: "Laravel platform with Stripe payments, Firebase notifications, multi-role access, real-time GPS tracking, live chat, dynamic pricing, multi-currency support, and admin dashboards for driver approvals, reports, and loyalty programs.",
+    tags: ["Laravel", "Html/CSS", "Stripe", "Firebase"],
+    repo: "https://github.com/talaosman/DeliveryApp"
+  },
+  {
+    name: "Teacher Management System",
+    desc: "C++ application managing university teachers and schedules using OOP, pointers, linked lists, with teacher ranking and persistent data storage.",
+    tags: ["C++", "OOP", "Pointers"]
+  }
+];
+
+
 
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(3);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const updateVisible = () => {
@@ -133,14 +239,16 @@ const ProjectsList = () => { const projects = [ { name: "Course Management Syste
       else if (window.innerWidth <= 1024) setVisible(2);
       else setVisible(3);
     };
-
     updateVisible();
     window.addEventListener("resize", updateVisible);
     return () => window.removeEventListener("resize", updateVisible);
   }, []);
 
   const maxIndex = projects.length - visible;
-  
+
+  const handleCardClick = (name) => {
+    if (name === "AI Image Generator") setModalOpen(true);
+  };
 
   return (
     <ProjectsSection id="projects">
@@ -151,25 +259,52 @@ const ProjectsList = () => { const projects = [ { name: "Course Management Syste
         {index < maxIndex && <Arrow onClick={() => setIndex(index + 1)}>›</Arrow>}
 
         <CarouselTrack index={index} visible={visible}>
-          {projects.map((p, i) => (
-            <Card key={i}>
-              <div className="inner">
-                <h3>{p.name}</h3>
-                <p>{p.desc}</p>
+     {projects.map((p, i) => (
+       <Card key={i}>
+    <div className="inner">
+      <h3>{p.name}</h3>
+      <p>{p.desc}</p>
 
-                <Tags>
-                  {p.tags.map((t, j) => (
-                    <Tag key={j}>{t}</Tag>
-                  ))}
-                </Tags>
+      <Tags>
+        {p.tags.map((t, j) => (
+          <Tag key={j}>{t}</Tag>
+        ))}
+      </Tags>
 
-                {p.demo && <Button href={p.demo} target="_blank">Live Demo</Button>}
-                {p.repo && <Button href={p.repo} target="_blank">GitHub Repo</Button>}
-              </div>
-            </Card>
-          ))}
+      {/* Normal buttons */}
+      {p.demo && (
+        <Button href={p.demo} target="_blank">
+          Live Demo
+        </Button>
+      )}
+
+      {p.repo && (
+        <Button href={p.repo} target="_blank">
+          GitHub Repo
+        </Button>
+      )}
+
+      {/* AI Generator button ONLY */}
+      {p.name === "AI Image Generator" && (
+        <ActionButton onClick={() => setModalOpen(true)}>
+          Try AI Generator
+        </ActionButton>
+      )}
+      </div>
+     </Card>
+     ))}
+
         </CarouselTrack>
       </CarouselWrapper>
+
+      {modalOpen && (
+        <ModalOverlay onClick={() => setModalOpen(false)}>
+          <ModalContent onClick={e => e.stopPropagation()}>
+            <CloseButton onClick={() => setModalOpen(false)}>×</CloseButton>
+            <ImageGenerator />
+          </ModalContent>
+        </ModalOverlay>
+      )}
     </ProjectsSection>
   );
 };
