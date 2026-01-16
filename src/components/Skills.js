@@ -3,7 +3,7 @@ import styled from "styled-components";
 import AzureDevOps from "../assets/azure.png";
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
-  FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
+  FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaFigma,
   FaCogs, FaCode, FaWindows, FaChevronLeft, FaChevronRight,
 } from "react-icons/fa"; 
 import {
