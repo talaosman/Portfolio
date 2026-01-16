@@ -156,13 +156,6 @@ const NavButton = styled.button`
   }
 `;
 
-const ProgressIndicator = styled.div`
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: #64ffda;
-  font-weight: 600;
-`;
-
 const SkillCarousel = ({ skills, title }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef(null);
