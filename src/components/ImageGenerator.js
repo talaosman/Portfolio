@@ -5,7 +5,7 @@ function ImageGenerator() {
   const [prompt, setPrompt] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [clickCount, setClickCount] = useState(0); // Track how many times Generate is clicked
+  const [clickCount, setClickCount] = useState(0); 
 
   const generateImage = async () => {
     if (clickCount >= 5) {
