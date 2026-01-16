@@ -1,13 +1,21 @@
 import React, { useState, useRef, useEffect } from "react"; 
 import styled from "styled-components"; 
+import AzureDevOps from "../assets/azure.png";
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
   FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
   FaCogs, FaCode, FaWindows, FaChevronLeft, FaChevronRight,
 } from "react-icons/fa"; 
 import {
-  SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
-  SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle,
+  SiCplusplus,
+  SiJavascript,
+  SiMysql,
+  SiLaravel,
+  SiSpringboot,
+  SiAdobephotoshop,
+  SiAdobeillustrator,
+  SiMongodb,
+  SiOracle,
 } from "react-icons/si";
 import { GiBrain } from "react-icons/gi"; 
 
@@ -233,7 +241,16 @@ const Skills = () => {
     { name: "MySQL", icon: <SiMysql /> },
     { name: "Oracle DB", icon: <SiOracle /> },
     { name: "MongoDB", icon: <SiMongodb /> },
-    { name: "Azure DevOps", icon: <FaMicrosoft /> },
+    { 
+    name: "Azure DevOps", 
+    icon: (
+    <img
+      src={AzureDevOps}
+      alt="Azure DevOps"
+      style={{ width: "64px", height: "64px" }}
+    />
+     )
+    },
     { name: "Windows", icon: <FaWindows /> },
     { name: "Figma", icon: <FaFigma /> },
     { name: "Photoshop", icon: <SiAdobephotoshop /> },
