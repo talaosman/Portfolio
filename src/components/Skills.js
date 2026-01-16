@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"; 
+import React, { useRef } from "react"; 
 import styled from "styled-components"; 
 import AzureDevOps from "../assets/azure.png";
 import {
@@ -7,18 +7,12 @@ import {
   FaCogs, FaCode, FaWindows, FaChevronLeft, FaChevronRight,
 } from "react-icons/fa"; 
 import {
-  SiCplusplus,
-  SiJavascript,
-  SiMysql,
-  SiLaravel,
-  SiSpringboot,
-  SiAdobephotoshop,
-  SiAdobeillustrator,
-  SiMongodb,
-  SiOracle,
+  SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
+  SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle,
 } from "react-icons/si";
-import { GiBrain } from "react-icons/gi"; 
+import { GiBrain } from "react-icons/gi";
 
+// ---------------- Styled Components ----------------
 const SkillsSection = styled.section`
   padding: 4rem 2rem;
   background: linear-gradient(135deg, #0d0d17, #1a1a2e);
@@ -45,29 +39,29 @@ const SkillsSection = styled.section`
   }
 `;
 
-const CarouselContainer = styled.div`
-  max-width: 1200px;
-  margin: 0 auto 3rem;
+const CarouselWrapper = styled.div`
   position: relative;
 `;
 
-const CarouselWrapper = styled.div`
-  overflow: hidden;
-  padding: 2rem 0;
-`;
-
-const CarouselTrack = styled.div`
+const CarouselContainer = styled.div`
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0 calc(50% - 150px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 1rem 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    cursor: default; /* desktop shows normal cursor */
+  }
 `;
 
 const SkillCard = styled.div`
-  flex-shrink: 0;
-  width: 300px;
-  height: 350px;
+  flex: 0 0 250px; 
+  height: 300px;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -75,46 +69,34 @@ const SkillCard = styled.div`
   justify-content: center;
   gap: 1rem;
   padding: 1.5rem;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  background: ${props => props.isActive 
-    ? 'rgba(0, 119, 255, 0.25)' 
-    : 'rgba(255, 255, 255, 0.05)'};
-  
-  transform: ${props => props.isActive 
-    ? 'scale(1.15)' 
-    : 'scale(0.9)'};
-  
-  opacity: ${props => props.isActive ? '1' : '0.5'};
-  box-shadow: ${props => props.isActive 
-    ? '0 15px 40px rgba(0, 180, 255, 0.3)' 
-    : '0 8px 20px rgba(0, 0, 0, 0.2)'};
+  background: rgba(0, 119, 255, 0.1);
+  scroll-snap-align: center;
+  transition: all 0.3s ease;
 
   svg {
-    font-size: 4rem;
-    color: ${props => props.isActive ? '#64ffda' : '#00b4ff'};
-    transition: all 0.3s ease;
+    font-size: 3rem;
+    color: #00b4ff;
   }
 
   p {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #ccd6f6;
     letter-spacing: 0.5px;
     text-align: center;
     margin: 0;
   }
 
-  @media (max-width: 768px) {
-    width: 250px;
-    height: 300px;
-    
+  @media (min-width: 768px) {
+    flex: 0 0 300px;
+    height: 350px;
+
     svg {
-      font-size: 3rem;
+      font-size: 4rem;
     }
-    
+
     p {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
   }
 `;
@@ -123,23 +105,22 @@ const NavButton = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  ${props => props.direction === 'left' ? 'left: 10px;' : 'right: 10px;'}
-  z-index: 100;
-  background: rgba(0, 180, 255, 0.2);
-  border: 2px solid rgba(0, 180, 255, 0.5);
-  border-radius: 50%;
+  z-index: 10;
   width: 50px;
   height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,180,255,0.2);
   color: #00b4ff;
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+
   &:hover {
-    background: rgba(0, 180, 255, 0.4);
-    border-color: rgba(100, 255, 218, 0.8);
+    background: rgba(0,180,255,0.4);
     color: #64ffda;
     transform: translateY(-50%) scale(1.1);
   }
@@ -149,82 +130,57 @@ const NavButton = styled.button`
     cursor: not-allowed;
   }
 
-  svg {
-    font-size: 1.5rem;
+  &.left {
+    left: 10px;
+  }
+
+  &.right {
+    right: 10px;
   }
 
   @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
-    ${props => props.direction === 'left' ? 'left: 5px;' : 'right: 5px;'}
-    
-    svg {
-      font-size: 1.2rem;
-    }
+    display: none; /* hide buttons on mobile */
   }
 `;
 
+// ---------------- Carousel Component ----------------
 const SkillCarousel = ({ skills, title }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const trackRef = useRef(null);
+  const carouselRef = useRef(null);
 
-  const goToNext = () => {
-    if (activeIndex < skills.length - 1) {
-      setActiveIndex(activeIndex + 1);
+  const scroll = (direction) => {
+    const container = carouselRef.current;
+    const scrollAmount = container.clientWidth / 2; // scroll half container
+    if (direction === "left") {
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
-
-  const goToPrev = () => {
-    if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (trackRef.current) {
-      const offset = -(activeIndex * (300 + 24)); // card width + gap
-      trackRef.current.style.transform = `translateX(${offset}px)`;
-    }
-  }, [activeIndex]);
 
   return (
     <>
       <h3>{title}</h3>
-      <CarouselContainer>
-        <NavButton 
-          direction="left" 
-          onClick={goToPrev}
-          disabled={activeIndex === 0}
-        >
+      <CarouselWrapper>
+        <NavButton className="left" onClick={() => scroll("left")}>
           <FaChevronLeft />
         </NavButton>
-
-        <CarouselWrapper>
-          <CarouselTrack ref={trackRef}>
-            {skills.map((skill, index) => (
-              <SkillCard 
-                key={index}
-                isActive={index === activeIndex}
-              >
-                {skill.icon}
-                <p>{skill.name}</p>
-              </SkillCard>
-            ))}
-          </CarouselTrack>
-        </CarouselWrapper>
-
-        <NavButton 
-          direction="right" 
-          onClick={goToNext}
-          disabled={activeIndex === skills.length - 1}
-        >
+        <NavButton className="right" onClick={() => scroll("right")}>
           <FaChevronRight />
         </NavButton>
-      </CarouselContainer>
+        <CarouselContainer ref={carouselRef}>
+          {skills.map((skill, index) => (
+            <SkillCard key={index}>
+              {skill.icon}
+              <p>{skill.name}</p>
+            </SkillCard>
+          ))}
+        </CarouselContainer>
+      </CarouselWrapper>
     </>
   );
 };
 
+// ---------------- Skills Component ----------------
 const Skills = () => {
   const technicalSkills = [
     { name: "C++", icon: <SiCplusplus /> },
@@ -242,14 +198,14 @@ const Skills = () => {
     { name: "Oracle DB", icon: <SiOracle /> },
     { name: "MongoDB", icon: <SiMongodb /> },
     { 
-    name: "Azure DevOps", 
-    icon: (
-    <img
-      src={AzureDevOps}
-      alt="Azure DevOps"
-      style={{ width: "64px", height: "64px" }}
-    />
-     )
+      name: "Azure DevOps", 
+      icon: (
+        <img
+          src={AzureDevOps}
+          alt="Azure DevOps"
+          style={{ width: "64px", height: "64px" }}
+        />
+      )
     },
     { name: "Windows", icon: <FaWindows /> },
     { name: "Figma", icon: <FaFigma /> },
