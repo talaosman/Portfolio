@@ -58,26 +58,58 @@ const ContactSectionStyled = styled.section`
 
 const ContactSection = () => {
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // 🚫 stop redirect
+    setLoading(true);
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mlgggepa", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+      setSuccess(true); 
+
+      setTimeout(() => {
+      setSuccess(false); 
+      }, 5000);
+      
+      e.target.reset(); 
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <ContactSectionStyled id="contact">
       <h2>Contact Me</h2>
 
-      <form
-        action="https://formspree.io/f/mlgggepa" 
-        method="POST"
-        onSubmit={() => setSuccess(true)}
-      >
+      <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="message" placeholder="Your Message" rows="6" required />
 
-        <button type="submit">
-          <FaEnvelope /> Send Message
+        <button type="submit" disabled={loading}>
+          <FaEnvelope /> {loading ? "Sending..." : "Send Message"}
         </button>
       </form>
 
-      {success && <div className="success-message">Message sent! Thank you 🙏</div>}
+      {success && (
+        <div className="success-message">
+          Message sent successfully! Thank you 🙏
+        </div>
+      )}
     </ContactSectionStyled>
   );
 };
