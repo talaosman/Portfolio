@@ -186,12 +186,12 @@ const SkillCarousel = ({ skills, title }) => {
 const Skills = () => {
   const technicalSkills = [
     { name: "C++", icon: <SiCplusplus /> },
-    { name: "JavaFX",   
+    { name: "JavaFx",   
       icon: (
         <img
           src={javaFx}
           alt="javaFx"
-          style={{ width: "64px", height: "64px" }}
+          style={{ width: "70px", height: "70px" }}
         />
       )
     },
