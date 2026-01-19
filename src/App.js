@@ -12,6 +12,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./components/Loader.css";
 import "./components/ScrollTop.css";
+import ContactSection from "./components/Contact";
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -55,6 +57,7 @@ function App() {
           <ProjectsList />
           <Skills />
           <Volunteer />
+          <ContactSection />
           <Footer />
           
           {showScroll && (

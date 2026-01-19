@@ -1,6 +1,8 @@
 import React, { useRef } from "react"; 
 import styled from "styled-components"; 
 import AzureDevOps from "../assets/azure.png";
+import javaFx from "../assets/JavaFX.png";
+
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
   FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaFigma,
@@ -184,8 +186,16 @@ const SkillCarousel = ({ skills, title }) => {
 const Skills = () => {
   const technicalSkills = [
     { name: "C++", icon: <SiCplusplus /> },
+    { name: "JavaFX",   
+      icon: (
+        <img
+          src={javaFx}
+          alt="javaFx"
+          style={{ width: "64px", height: "64px" }}
+        />
+      )
+    },
     { name: "Java", icon: <FaJava /> },
-    { name: "JavaFX", icon: <FaJava /> },
     { name: "C#", icon: <FaCode /> },
     { name: "Assembly", icon: <FaCogs /> },
     { name: "JavaScript", icon: <SiJavascript /> },

@@ -1,46 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { FaEnvelope } from "react-icons/fa";
 
-const ContactSection = styled.section`
-  padding:4rem 2rem;
-  h2{ text-align:center; margin-bottom:2rem; color:#007BFF; }
-  form{
-    max-width:600px;
-    margin:0 auto;
-    display:flex;
-    flex-direction:column;
-    gap:1rem;
+const ContactSectionStyled = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 1rem;
+  background: #0f0f1a;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #00aaff, #00ffcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
-  input, textarea{
-    padding:0.8rem;
-    border-radius:8px;
-    border:1px solid #ccc;
-    font-size:1rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    gap: 1rem;
+
+    input, textarea {
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #00aaff;
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      background: rgba(0,170,255,0.2);
+      color: #fff;
+      border: 1px solid #00aaff;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0,170,255,0.35);
+        box-shadow: 0 0 15px #00aaff;
+      }
+    }
   }
-  button{
-    padding:1rem;
-    border:none;
-    background:#4CAF50;
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:50px;
-    &:hover{ opacity:0.8; }
+
+  .success-message {
+    margin-top: 1rem;
+    color: #00ffcc;
   }
 `;
 
-const Contact = () => {
+const ContactSection = () => {
+  const [success, setSuccess] = useState(false);
+
   return (
-    <ContactSection id="contact">
+    <ContactSectionStyled id="contact">
       <h2>Contact Me</h2>
-      <form onSubmit={(e)=>e.preventDefault()}>
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message" required />
-        <button type="submit">Send Message</button>
+
+      <form
+        action="https://formspree.io/f/mlgggepa" 
+        method="POST"
+        onSubmit={() => setSuccess(true)}
+      >
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" rows="6" required />
+
+        <button type="submit">
+          <FaEnvelope /> Send Message
+        </button>
       </form>
-    </ContactSection>
+
+      {success && <div className="success-message">Message sent! Thank you 🙏</div>}
+    </ContactSectionStyled>
   );
 };
 
-export default Contact;
+export default ContactSection;
