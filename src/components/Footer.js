@@ -22,7 +22,7 @@ const FooterSection = styled.footer`
 
 const Footer = () => (
   <FooterSection>
-    <p>© 2025 Tala Osman</p>
+    <p>© 2026 Tala Osman</p>
     <div>
       <a href="mailto:talawww@hotmail.com"><FaEnvelope /></a>
       <a href="https://github.com/talaosman" target="_blank" rel="noreferrer"><FaGithub /></a>
