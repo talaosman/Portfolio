@@ -1,103 +1,169 @@
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { FaDownload, FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
-import cvFile from "../assets/Tala-Osman-FlowCV-Resume-20250818.pdf";
+import cvFile from "../assets/Tala-Osman-Resume-2026-08-12.pdf";
 import profile from "../assets/Profile.jpeg";
+import { PrimaryButton, GhostButton } from "./shared/Button";
 
 const HeaderSection = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
-  padding: 0 1rem;
+  padding: 6rem 1.5rem 4rem;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    width: 60vw;
+    max-width: 700px;
+    height: 60vw;
+    max-height: 700px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 1.8rem;
+  }
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 148px;
+    height: 148px;
     border-radius: 50%;
-    margin-bottom: 1.5rem;
-    border: 3px solid #00aaff;
-    box-shadow: 0 0 20px rgba(0,170,255,0.6);
+    object-fit: cover;
+    border: 2px solid var(--border-strong);
+    box-shadow: 0 0 0 8px var(--accent-soft);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
   }
 
   h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: clamp(2.4rem, 6vw, 4rem);
     font-weight: 700;
-    background: linear-gradient(90deg, #00aaff, #00ffcc);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.9rem;
+    background: linear-gradient(135deg, #ffffff 40%, var(--accent) 120%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  p {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
-    color: #cccccc;
+  .role {
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
   }
 
-  button {
-    background: rgba(0,170,255,0.2);
-    color: #fff;
-    border: 1px solid #00aaff;
-    padding: 0.9rem 1.8rem;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
+  .tagline {
+    max-width: 520px;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    color: var(--text-faint);
+    margin-bottom: 2.4rem;
+  }
 
-    &:hover {
-      background: rgba(0,170,255,0.35);
-      transform: translateY(-3px);
-      box-shadow: 0 0 15px #00aaff;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2.2rem;
   }
 
   .socials {
-    margin-top: 1.5rem;
     display: flex;
-    gap: 1.2rem;
+    gap: 1.3rem;
 
     a {
-      color: #00aaff;
-      font-size: 1.6rem;
-      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      transition: all 0.25s ease;
 
       &:hover {
-        color: #00ffcc;
+        color: var(--accent);
+        border-color: var(--accent);
+        transform: translateY(-3px);
       }
     }
   }
 `;
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
 const Header = () => (
   <HeaderSection id="home">
-    <img src={profile} alt="Tala Osman" />
-    <h1>Tala Osman</h1>
-    <p>Computer Science Student | Software Developer</p>
-    <button className="glass">
-      <a href={cvFile} download="Tala-Osman-Resume.pdf">
-        <FaDownload /> Download CV
-      </a>
-    </button>
+    <motion.div className="content" variants={container} initial="hidden" animate="show">
+      <motion.div className="avatar-wrap" variants={item}>
+        <img src={profile} alt="Tala Osman" />
+      </motion.div>
 
-    {/* Social Links */}
-    <div className="socials">
-      <a href="mailto:talawww@hotmail.com"><FaEnvelope /></a>
-      <a href="https://github.com/talaosman" target="_blank" rel="noreferrer"><FaGithub /></a>
-      <a href="https://www.linkedin.com/in/tala-osman-380412368" target="_blank" rel="noreferrer"><FaLinkedin /></a>
-      <a href="https://www.instagram.com/talaosman._" target="_blank" rel="noreferrer"><FaInstagram /></a>
-    </div>
+      <motion.p className="eyebrow" variants={item}>
+        Hi, I'm
+      </motion.p>
+
+      <motion.h1 variants={item}>Tala Osman</motion.h1>
+
+      <motion.p className="role" variants={item}>
+        Software Developer
+      </motion.p>
+
+      <motion.p className="tagline" variants={item}>
+        B.S. Computer Science graduate building efficient, user-friendly
+        applications with React, Spring Boot, Laravel, and .NET.
+      </motion.p>
+
+      <motion.div className="cta-row" variants={item}>
+        <PrimaryButton href={cvFile} download="Tala-Osman-Resume.pdf">
+          <FaDownload /> Download CV
+        </PrimaryButton>
+        <GhostButton href="#projects">View Projects</GhostButton>
+      </motion.div>
+
+      <motion.div className="socials" variants={item}>
+        <a href="mailto:talawww@hotmail.com" aria-label="Email"><FaEnvelope /></a>
+        <a href="https://github.com/talaosman" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
+        <a href="https://www.linkedin.com/in/tala-osman-380412368" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
+        <a href="https://www.instagram.com/talaosman._" target="_blank" rel="noreferrer" aria-label="Instagram"><FaInstagram /></a>
+      </motion.div>
+    </motion.div>
   </HeaderSection>
 );
 

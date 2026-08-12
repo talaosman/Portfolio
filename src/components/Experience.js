@@ -1,97 +1,124 @@
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { Briefcase, Code, Database } from "lucide-react";
+import SectionHeading from "./shared/SectionHeading";
 
 const ExperienceSection = styled.section`
-  padding: 6rem 2rem;
-  background: linear-gradient(135deg, #0d0d17, #1a1a2e);
-
-  h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    color: #00aaff;
-    font-size: 2.5rem;
-    font-weight: 700;
-  }
+  padding: 7rem 1.5rem;
+  max-width: var(--section-max);
+  margin: 0 auto;
 
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.6rem;
   }
 
   .card {
     padding: 2rem;
-    border-radius: 16px;
-    color: #e6e6e6;
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: var(--radius-lg);
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
 
-    &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 25px rgba(0,170,255,0.4);
-    }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-strong);
+  }
+
+  .icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    margin-bottom: 1.4rem;
   }
 
   .icon {
-    width: 48px;
-    height: 48px;
-    color: #00ffcc;
-    margin-bottom: 1.2rem;
+    width: 22px;
+    height: 22px;
+    color: var(--accent);
   }
 
   .card h3 {
-    margin-bottom: 0.8rem;
-    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    color: #00aaff;
+    color: var(--text);
   }
 
   .date {
-    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
     font-weight: 500;
-    color: #aaa;
-    margin-bottom: 1rem;
+    color: var(--text-faint);
+    margin-bottom: 1.1rem;
+  }
+
+  .card p:last-child {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    strong { color: var(--text); }
   }
 `;
 
+const roles = [
+  {
+    icon: Code,
+    title: "Software Intern",
+    company: "Dualcom Consulting / Nokia",
+    date: "07/2025 – 09/2025 · Khaldeh, Lebanon",
+    desc: (
+      <>Developed features using <strong>React.js</strong> &{" "}
+      <strong>Spring Boot</strong>. Worked on AI-driven solutions.</>
+    ),
+  },
+  {
+    icon: Database,
+    title: ".NET Developer Intern",
+    company: "Inkript Resources Group",
+    date: "01/2025 – 02/2025 · Beirut, Lebanon",
+    desc: (
+      <>Built <strong>RESTful APIs</strong> with <strong>ASP.NET Core</strong>.
+      Improved database architecture, worked in <strong>Agile Scrum</strong>.</>
+    ),
+  },
+  {
+    icon: Briefcase,
+    title: "Accounting Intern",
+    company: "Sara Food Group",
+    date: "04/2022 – 05/2022 · Khaldeh, Lebanon",
+    desc: <>Processed credit/debit transactions & created reports for business decisions.</>,
+  },
+];
+
 const Experience = () => (
   <ExperienceSection id="experience">
-    <h2>Professional Experience</h2>
+    <SectionHeading index="02">Professional Experience</SectionHeading>
     <div className="cards">
-      <div className="card">
-        <Code className="icon" />
-        <h3>Software Intern – Dualcom Consulting / Nokia</h3>
-        <p className="date">07/2025 – 09/2025 | Khaldeh, Lebanon</p>
-        <p>
-          Developed features using <strong>React.js</strong> &
-          <strong> Spring Boot</strong>. Worked on AI-driven solutions.
-        </p>
-      </div>
-
-      <div className="card">
-        <Database className="icon" />
-        <h3>.NET Developer Intern – Inkript Resources Group</h3>
-        <p className="date">01/2025 – 02/2025 | Beirut, Lebanon</p>
-        <p>
-          Built <strong>RESTful APIs</strong> with <strong>ASP.NET Core</strong>.
-          Improved database architecture, worked in <strong>Agile Scrum</strong>.
-        </p>
-      </div>
-
-      <div className="card">
-        <Briefcase className="icon" />
-        <h3>Accounting Intern – Sara Food Group</h3>
-        <p className="date">04/2022 – 05/2022 | Khaldeh, Lebanon</p>
-        <p>
-          Processed credit/debit transactions & created reports for business
-          decisions.
-        </p>
-      </div>
+      {roles.map((r, i) => (
+        <motion.div
+          className="card"
+          key={r.title}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+        >
+          <div className="icon-wrap">
+            <r.icon className="icon" />
+          </div>
+          <h3>{r.title} – {r.company}</h3>
+          <p className="date">{r.date}</p>
+          <p>{r.desc}</p>
+        </motion.div>
+      ))}
     </div>
   </ExperienceSection>
 );

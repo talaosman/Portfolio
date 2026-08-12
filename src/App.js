@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import GlobalStyle from "./globalStyles";
+import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import About from "./components/About";
 import Experience from "./components/Experience";
 import ProjectsList from "./components/Project";
 import Skills from "./components/Skills";
 import Volunteer from "./components/Volunteer";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./components/Loader.css"; 
+import "./components/Loader.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -35,12 +37,14 @@ function App() {
       ) : (
         <div className="app fade-in">
           <GlobalStyle />
+          <Navbar />
           <Header />
           <About />
           <Experience />
           <ProjectsList />
           <Skills />
           <Volunteer />
+          <Contact />
           <Footer />
         </div>
       )}

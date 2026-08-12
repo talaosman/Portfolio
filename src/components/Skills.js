@@ -1,161 +1,174 @@
-import React from "react"; 
-import styled from "styled-components"; 
+import React from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import Slider from "react-slick";
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
   FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
   FaCogs, FaCode, FaWindows
-} from "react-icons/fa"; 
+} from "react-icons/fa";
 import {
   SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
-  SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle
-} from "react-icons/si"; 
-import { GiBrain } from "react-icons/gi"; 
+  SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle,
+  SiDotnet, SiPython, SiDocker, SiVercel, SiNetlify
+} from "react-icons/si";
+import { GiBrain } from "react-icons/gi";
+import SectionHeading from "./shared/SectionHeading";
+import { PrevArrow, NextArrow } from "./shared/CarouselArrows";
+import { carouselDots } from "./shared/carouselStyles";
 
 const SkillsSection = styled.section`
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, #0d0d17, #1a1a2e);
-  color: #e6f1ff;
-  font-family: "Poppins", sans-serif;
-  text-align: center;
-
-  h2 {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    margin-bottom: 2.5rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, #00b4ff, #0077ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  padding: 7rem 1.5rem;
+  max-width: var(--section-max);
+  margin: 0 auto;
 
   h3 {
-    font-size: 1.5rem;
-    color: #64ffda;
-    margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    color: var(--text-faint);
+    margin-bottom: 1.4rem;
+    text-align: center;
   }
 
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem;
-    justify-items: center;
-    max-width: 1100px;
-    margin: 0 auto 3rem;
+  .carousel-wrap {
+    position: relative;
+    padding: 0 2.4rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .carousel-wrap:last-child {
+    margin-bottom: 0;
+  }
+
+  .slide-pad {
+    padding: 0 0.5rem;
   }
 
   .skill {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 1.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* vertical center */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 150px;
-    width: 100%;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 128px;
+    transition: transform 0.25s ease, border-color 0.25s ease;
     cursor: default;
   }
 
   .skill:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 180, 255, 0.5);
-    background: rgba(0, 31, 63, 0.9);
+    transform: translateY(-5px);
+    border-color: var(--accent);
   }
 
   svg {
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    color: #00b4ff;
-    margin-bottom: 0.7rem;
-    transition: all 0.3s ease;
+    font-size: 1.7rem;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
   }
 
-  .skill:hover svg {
-    color: #64ffda;
-    transform: scale(1.2);
-  }
+  .skill:hover svg { color: var(--accent); }
 
   .skill p {
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #ccd6f6;
-    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-muted);
     text-align: center;
   }
 
-  @media (max-width: 768px) {
-    .skills-grid { gap: 1rem; }
-    .skill { padding: 1rem 0.8rem; }
-    svg { font-size: 2rem; }
-  }
+  ${carouselDots}
 
-  @media (max-width: 480px) {
-    .skills-grid { gap: 0.8rem; }
-    .skill { padding: 0.8rem 0.6rem; }
-    svg { font-size: 1.8rem; }
-    .skill p { font-size: 0.85rem; }
+  @media (max-width: 640px) {
+    .carousel-wrap { padding: 0 1.8rem; }
   }
 `;
 
-const Skills = () => {
-  const technicalSkills = [
-    { name: "C++", icon: <SiCplusplus /> },
-    { name: "Java", icon: <FaJava /> },
-    { name: "JavaFX", icon: <FaJava /> },  // Added JavaFX
-    { name: "C#", icon: <FaCode /> },
-    { name: "Assembly", icon: <FaCogs /> }, // Added Assembly
-    { name: "JavaScript", icon: <SiJavascript /> },
-    { name: "HTML / CSS", icon: <><FaHtml5 /><FaCss3Alt /></> },
-    { name: "React.js / React Native", icon: <FaReact /> },
-    { name: "PHP / Laravel", icon: <SiLaravel /> },
-    { name: "Spring Boot", icon: <SiSpringboot /> },
-    { name: "SQL / NoSQL", icon: <FaDatabase /> },
-    { name: "MySQL", icon: <SiMysql /> },
-    { name: "Oracle DB", icon: <SiOracle /> },
-    { name: "MongoDB", icon: <SiMongodb /> },
-    { name: "Azure", icon: <FaMicrosoft /> },
-    { name: "Windows", icon: <FaWindows /> },
-    { name: "Figma", icon: <FaFigma /> }, // Already included
-    { name: "Photoshop", icon: <SiAdobephotoshop /> },
-    { name: "Illustrator", icon: <SiAdobeillustrator /> },
-  ];
+const technicalSkills = [
+  { name: "C++", icon: <SiCplusplus /> },
+  { name: "Java", icon: <FaJava /> },
+  { name: "JavaFX", icon: <FaJava /> },
+  { name: "C#", icon: <FaCode /> },
+  { name: "Assembly", icon: <FaCogs /> },
+  { name: "JavaScript", icon: <SiJavascript /> },
+  { name: "HTML / CSS", icon: <><FaHtml5 /><FaCss3Alt /></> },
+  { name: "React.js / React Native", icon: <FaReact /> },
+  { name: ".NET / C#", icon: <SiDotnet /> },
+  { name: "PHP / Laravel", icon: <SiLaravel /> },
+  { name: "Spring Boot", icon: <SiSpringboot /> },
+  { name: "Python", icon: <SiPython /> },
+  { name: "SQL / NoSQL", icon: <FaDatabase /> },
+  { name: "MySQL", icon: <SiMysql /> },
+  { name: "Oracle DB", icon: <SiOracle /> },
+  { name: "MongoDB", icon: <SiMongodb /> },
+  { name: "Docker", icon: <SiDocker /> },
+  { name: "Azure DevOps", icon: <FaMicrosoft /> },
+  { name: "Vercel / Netlify", icon: <><SiVercel /><SiNetlify /></> },
+  { name: "Windows", icon: <FaWindows /> },
+  { name: "Figma", icon: <FaFigma /> },
+  { name: "Photoshop", icon: <SiAdobephotoshop /> },
+  { name: "Illustrator", icon: <SiAdobeillustrator /> },
+];
 
-  const softSkills = [
-    { name: "Project Management", icon: <FaProjectDiagram /> },
-    { name: "Time Management", icon: <FaClock /> },
-    { name: "Analytical Thinking", icon: <GiBrain /> },
-    { name: "Team Collaboration", icon: <FaUsers /> },
-    { name: "Problem Solving", icon: <FaLightbulb /> },
-    { name: "Leadership", icon: <FaChalkboardTeacher /> },
-  ];
+const softSkills = [
+  { name: "Project Management", icon: <FaProjectDiagram /> },
+  { name: "Time Management", icon: <FaClock /> },
+  { name: "Analytical Thinking", icon: <GiBrain /> },
+  { name: "Team Collaboration", icon: <FaUsers /> },
+  { name: "Problem Solving", icon: <FaLightbulb /> },
+  { name: "Leadership", icon: <FaChalkboardTeacher /> },
+];
 
-  return (
-    <SkillsSection id="skills">
-      <h2>Skills</h2>
+const makeSettings = (slidesToShow) => ({
+  dots: true,
+  arrows: true,
+  infinite: true,
+  speed: 450,
+  slidesToShow,
+  slidesToScroll: slidesToShow,
+  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrow />,
+  responsive: [
+    { breakpoint: 1024, settings: { slidesToShow: Math.min(4, slidesToShow), slidesToScroll: Math.min(4, slidesToShow) } },
+    { breakpoint: 700, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+  ],
+});
 
-      <h3>Technical Skills</h3>
-      <div className="skills-grid">
-        {technicalSkills.map((s, i) => (
-          <div className="skill" key={i}>
+const SkillCarousel = ({ items, slidesToShow }) => (
+  <motion.div
+    className="carousel-wrap"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-40px" }}
+    transition={{ duration: 0.45 }}
+  >
+    <Slider {...makeSettings(slidesToShow)}>
+      {items.map((s) => (
+        <div key={s.name} className="slide-pad">
+          <div className="skill">
             {s.icon}
             <p>{s.name}</p>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </Slider>
+  </motion.div>
+);
 
-      <h3>Soft Skills</h3>
-      <div className="skills-grid">
-        {softSkills.map((s, i) => (
-          <div className="skill" key={i}>
-            {s.icon}
-            <p>{s.name}</p>
-          </div>
-        ))}
-      </div>
-    </SkillsSection>
-  );
-};
+const Skills = () => (
+  <SkillsSection id="skills">
+    <SectionHeading index="04">Skills</SectionHeading>
+
+    <h3>Technical Skills</h3>
+    <SkillCarousel items={technicalSkills} slidesToShow={6} />
+
+    <h3>Soft Skills</h3>
+    <SkillCarousel items={softSkills} slidesToShow={4} />
+  </SkillsSection>
+);
 
 export default Skills;
