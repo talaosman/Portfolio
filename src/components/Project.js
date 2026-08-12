@@ -99,8 +99,9 @@ const ProjectsSection = styled.section`
 
   ${carouselDots}
 
-  @media (max-width: 640px) {
-    .carousel-wrap { padding: 0 1.8rem; }
+  @media (max-width: 700px) {
+    .carousel-wrap { padding: 0; }
+    .slide-pad { padding: 0 0.25rem; }
   }
 `;
 
@@ -123,11 +124,12 @@ const settings = {
   speed: 450,
   slidesToShow: 3,
   slidesToScroll: 1,
+  swipeToSlide: true,
   prevArrow: <PrevArrow />,
   nextArrow: <NextArrow />,
   responsive: [
     { breakpoint: 1024, settings: { slidesToShow: 2 } },
-    { breakpoint: 700, settings: { slidesToShow: 1 } },
+    { breakpoint: 700, settings: { slidesToShow: 1, arrows: false } },
   ],
 };
 

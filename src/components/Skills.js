@@ -83,8 +83,9 @@ const SkillsSection = styled.section`
 
   ${carouselDots}
 
-  @media (max-width: 640px) {
-    .carousel-wrap { padding: 0 1.8rem; }
+  @media (max-width: 700px) {
+    .carousel-wrap { padding: 0; }
+    .slide-pad { padding: 0 0.35rem; }
   }
 `;
 
@@ -130,11 +131,13 @@ const makeSettings = (slidesToShow) => ({
   speed: 450,
   slidesToShow,
   slidesToScroll: slidesToShow,
+  swipeToSlide: true,
   prevArrow: <PrevArrow />,
   nextArrow: <NextArrow />,
   responsive: [
     { breakpoint: 1024, settings: { slidesToShow: Math.min(4, slidesToShow), slidesToScroll: Math.min(4, slidesToShow) } },
-    { breakpoint: 700, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+    { breakpoint: 700, settings: { slidesToShow: 2, slidesToScroll: 2, arrows: false } },
+    { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1, arrows: false } },
   ],
 });
 
