@@ -16,6 +16,7 @@ import { GiBrain } from "react-icons/gi";
 import SectionHeading from "./shared/SectionHeading";
 import { PrevArrow, NextArrow } from "./shared/CarouselArrows";
 import { carouselDots } from "./shared/carouselStyles";
+import useCarouselTier from "./shared/useCarouselTier";
 
 const SkillsSection = styled.section`
   padding: 7rem 1.5rem;
@@ -124,53 +125,59 @@ const softSkills = [
   { name: "Leadership", icon: <FaChalkboardTeacher /> },
 ];
 
-const makeSettings = (slidesToShow) => ({
-  dots: true,
-  arrows: true,
-  infinite: true,
-  speed: 450,
-  slidesToShow,
-  slidesToScroll: slidesToShow,
-  swipeToSlide: true,
-  prevArrow: <PrevArrow />,
-  nextArrow: <NextArrow />,
-  responsive: [
-    { breakpoint: 1024, settings: { slidesToShow: Math.min(4, slidesToShow), slidesToScroll: Math.min(4, slidesToShow) } },
-    { breakpoint: 700, settings: { slidesToShow: 2, slidesToScroll: 2, arrows: false } },
-    { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1, arrows: false } },
-  ],
-});
+const tiersFor = (base) => [
+  { max: 480, slidesToShow: 1, arrows: false },
+  { max: 700, slidesToShow: Math.min(2, base), arrows: false },
+  { max: 1024, slidesToShow: Math.min(4, base), arrows: true },
+  { max: Infinity, slidesToShow: base, arrows: true },
+];
 
-const SkillCarousel = ({ items, slidesToShow }) => (
-  <motion.div
-    className="carousel-wrap"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
-    transition={{ duration: 0.45 }}
-  >
-    <Slider {...makeSettings(slidesToShow)}>
-      {items.map((s) => (
-        <div key={s.name} className="slide-pad">
-          <div className="skill">
-            {s.icon}
-            <p>{s.name}</p>
+const SkillCarousel = ({ items, baseSlidesToShow }) => {
+  const { slidesToShow, arrows } = useCarouselTier(tiersFor(baseSlidesToShow));
+
+  const settings = {
+    dots: true,
+    arrows,
+    infinite: true,
+    speed: 450,
+    slidesToShow,
+    slidesToScroll: slidesToShow,
+    swipeToSlide: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
+
+  return (
+    <motion.div
+      className="carousel-wrap"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.45 }}
+    >
+      <Slider key={slidesToShow} {...settings}>
+        {items.map((s) => (
+          <div key={s.name} className="slide-pad">
+            <div className="skill">
+              {s.icon}
+              <p>{s.name}</p>
+            </div>
           </div>
-        </div>
-      ))}
-    </Slider>
-  </motion.div>
-);
+        ))}
+      </Slider>
+    </motion.div>
+  );
+};
 
 const Skills = () => (
   <SkillsSection id="skills">
     <SectionHeading index="04">Skills</SectionHeading>
 
     <h3>Technical Skills</h3>
-    <SkillCarousel items={technicalSkills} slidesToShow={6} />
+    <SkillCarousel items={technicalSkills} baseSlidesToShow={6} />
 
     <h3>Soft Skills</h3>
-    <SkillCarousel items={softSkills} slidesToShow={4} />
+    <SkillCarousel items={softSkills} baseSlidesToShow={4} />
   </SkillsSection>
 );
 

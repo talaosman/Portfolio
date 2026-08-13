@@ -6,6 +6,7 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import SectionHeading from "./shared/SectionHeading";
 import { PrevArrow, NextArrow } from "./shared/CarouselArrows";
 import { carouselDots } from "./shared/carouselStyles";
+import useCarouselTier from "./shared/useCarouselTier";
 
 const ProjectsSection = styled.section`
   padding: 7rem 1.5rem;
@@ -117,23 +118,29 @@ const projects = [
   { name: "Heart Disease Prediction System", desc: "Machine learning system for heart disease prediction, covering preprocessing, model selection, and performance evaluation. Explored CNN models for medical image-based prediction.", tags: ["Python", "Machine Learning", "CNN"] },
 ];
 
-const settings = {
-  dots: true,
-  arrows: true,
-  infinite: true,
-  speed: 450,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  swipeToSlide: true,
-  prevArrow: <PrevArrow />,
-  nextArrow: <NextArrow />,
-  responsive: [
-    { breakpoint: 1024, settings: { slidesToShow: 2 } },
-    { breakpoint: 700, settings: { slidesToShow: 1, arrows: false } },
-  ],
-};
+const TIERS = [
+  { max: 480, slidesToShow: 1, arrows: false },
+  { max: 700, slidesToShow: 1, arrows: false },
+  { max: 1024, slidesToShow: 2, arrows: true },
+  { max: Infinity, slidesToShow: 3, arrows: true },
+];
 
-const ProjectsList = () => (
+const ProjectsList = () => {
+  const { slidesToShow, arrows } = useCarouselTier(TIERS);
+
+  const settings = {
+    dots: true,
+    arrows,
+    infinite: true,
+    speed: 450,
+    slidesToShow,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
+
+  return (
   <ProjectsSection id="projects">
     <SectionHeading index="03">Projects</SectionHeading>
     <motion.div
@@ -143,7 +150,7 @@ const ProjectsList = () => (
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5 }}
     >
-      <Slider {...settings}>
+      <Slider key={slidesToShow} {...settings}>
         {projects.map((p) => (
           <div key={p.name} className="slide-pad">
             <div className="card">
@@ -176,6 +183,7 @@ const ProjectsList = () => (
       </Slider>
     </motion.div>
   </ProjectsSection>
-);
+  );
+};
 
 export default ProjectsList;
