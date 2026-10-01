@@ -74,6 +74,20 @@ const GlobalStyle = createGlobalStyle`
     border: 1px solid var(--border);
   }
 
+  /* Stop wide content (e.g. carousel tracks) from adding a right-side
+     gutter and horizontal scroll on mobile. */
+  @media (max-width: 800px) {
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .slick-slider {
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.001ms !important;
