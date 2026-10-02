@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { FaDownload, FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
-import cvFile from "../assets/Tala-Osman-Resume-2026-08-12.pdf";
+import cvFile from "../assets/Tala-Osman-Software-Developer-CV.pdf";
 import profile from "../assets/Profile.jpeg";
 import { PrimaryButton, GhostButton } from "./shared/Button";
 
