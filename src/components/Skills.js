@@ -5,12 +5,12 @@ import Slider from "react-slick";
 import {
   FaReact, FaJava, FaHtml5, FaCss3Alt, FaDatabase, FaProjectDiagram,
   FaClock, FaUsers, FaLightbulb, FaChalkboardTeacher, FaMicrosoft, FaFigma,
-  FaCogs, FaCode, FaWindows
+  FaCogs, FaCode, FaWindows, FaRobot
 } from "react-icons/fa";
 import {
   SiCplusplus, SiJavascript, SiMysql, SiLaravel, SiSpringboot,
   SiAdobephotoshop, SiAdobeillustrator, SiMongodb, SiOracle,
-  SiDotnet, SiPython, SiDocker, SiVercel, SiNetlify
+  SiDotnet, SiPython, SiDocker, SiVercel, SiNetlify, SiAngular
 } from "react-icons/si";
 import { GiBrain } from "react-icons/gi";
 import SectionHeading from "./shared/SectionHeading";
@@ -99,10 +99,12 @@ const technicalSkills = [
   { name: "JavaScript", icon: <SiJavascript /> },
   { name: "HTML / CSS", icon: <><FaHtml5 /><FaCss3Alt /></> },
   { name: "React.js / React Native", icon: <FaReact /> },
+  { name: "Angular", icon: <SiAngular /> },
   { name: ".NET / C#", icon: <SiDotnet /> },
   { name: "PHP / Laravel", icon: <SiLaravel /> },
   { name: "Spring Boot", icon: <SiSpringboot /> },
   { name: "Python", icon: <SiPython /> },
+  { name: "AI Agents / Agentic Development", icon: <FaRobot /> },
   { name: "SQL / NoSQL", icon: <FaDatabase /> },
   { name: "MySQL", icon: <SiMysql /> },
   { name: "Oracle DB", icon: <SiOracle /> },
