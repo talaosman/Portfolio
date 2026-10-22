@@ -107,15 +107,15 @@ const ProjectsSection = styled.section`
 `;
 
 const projects = [
-  { name: "Course Management System", desc: "Java program that allows students to manage university courses with CSV storage.", tags: ["Java", "CSV"] },
-  { name: "University Website", desc: "Responsive website with faculties, events, campuses, admissions, and signup.", tags: ["HTML", "CSS", "Bootstrap", "JavaScript"] },
-  { name: "Medical Center Management", desc: "JavaFX system with secure login, patient file management, appointments, and staff data.", tags: ["JavaFX", "Database"], repo: "https://github.com/talaosman/Medical-Center-Management" },
-  { name: "Travel Booking Website", desc: "Responsive city tour guide with feedback forms and cross-device accessibility.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"], demo: "https://travelbookingcity.netlify.app" },
-  { name: "Rent House Web/Mobile App", desc: "Full-stack rental platform with Spring Boot APIs, Stripe payments, Google/GitHub login, and React Native mobile app.", tags: ["React", "Spring Boot", "Stripe", "React Native"], repo: "https://github.com/talaosman/Rental-House-website" },
-  { name: "Delivery App", desc: "Laravel-based delivery platform with payments, GPS tracking, chat, and multi-role access.", tags: ["Laravel", "JavaScript", "Stripe", "Firebase"], repo: "https://github.com/talaosman/DeliveryApp" },
-  { name: "Teacher Management System", desc: "C++ OOP project for managing university teachers, schedules, and feedback.", tags: ["C++", "OOP", "Pointers"] },
-  { name: "Cloud Deployment (NJS-AZ-FRD)", desc: "Hosted a Node.js application on Microsoft Azure with full resource setup — Web App, Functions, SQL, Key Vault, Storage — and CI/CD automation.", tags: ["Node.js", "Azure", "CI/CD"] },
-  { name: "Heart Disease Prediction System", desc: "Machine learning system for heart disease prediction, covering preprocessing, model selection, and performance evaluation. Explored CNN models for medical image-based prediction.", tags: ["Python", "Machine Learning", "CNN"] },
+  { name: "Rent House Web & Mobile App", desc: "Full-stack rental platform: Spring Boot REST APIs with OTP email, Google/GitHub sign-up, Stripe payments, Firebase live notifications, RAG-based AI chatbot, Google Maps, 360° virtual tours, and admin-only CRUD via middleware; responsive React.js frontend (search, view, rent, visit inquiries, favorites, auth) and a React Native mobile app.", tags: ["Spring Boot", "React.js", "React Native", "Stripe", "Firebase", "RAG"], demo: "https://rental-house-website-ten.vercel.app", repo: "https://github.com/talaosman/Rental-House-website" },
+  { name: "Delivery App", desc: "Full-stack delivery platform in PHP Laravel, HTML/CSS, and JavaScript with Stripe payments; multi-role access, email verification, real-time GPS tracking, live chat, dynamic pricing, push notifications, multi-currency support, and admin tools for driver approvals, payments, reports, and loyalty programs.", tags: ["Laravel", "JavaScript", "Stripe"], repo: "https://github.com/talaosman/DeliveryApp" },
+  { name: "Cloud Deployment — NJS-AZ-FRD", desc: "Node.js Azure Full Resource Deployment: hosted a Node.js application on Microsoft Azure with full resource setup — Web App, Functions, SQL, Key Vault, Storage, and CI/CD automation.", tags: ["Node.js", "Azure", "CI/CD"] },
+  { name: "Heart Disease Prediction System", desc: "Machine learning pipeline with preprocessing, model selection, and evaluation; multiple algorithms with hyperparameter tuning, plus CNN models explored for medical image-based prediction.", tags: ["Python", "Machine Learning", "CNN"] },
+  { name: "Medical Center Management System", desc: "JavaFX/Java application with secure login, user management, and storage of patient files, appointments, and staff using databases and CSV files.", tags: ["JavaFX", "Java", "Database", "CSV"], repo: "https://github.com/talaosman/Medical-Center-Management" },
+  { name: "University Teacher Management", desc: "C++ system using OOP, pointers, and linked lists to manage teachers and schedules, with feedback, teacher ranking, disk storage, and a visual interface.", tags: ["C++", "OOP", "Linked Lists"] },
+  { name: "Course Management System", desc: "Java application helping students manage university courses, with CSV-based data persistence.", tags: ["Java", "CSV"] },
+  { name: "University Website", desc: "Responsive university portal in HTML, CSS, JavaScript, and Bootstrap with faculties, events, campuses, admission, and sign-up.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"] },
+  { name: "Travel Booking Website", desc: "Responsive city tour guide in HTML, CSS, JavaScript, and Bootstrap with city management, a feedback form, and cross-device accessibility.", tags: ["HTML", "CSS", "JavaScript", "Bootstrap"], demo: "https://travelbookingcity.netlify.app" },
 ];
 
 const TIERS = [
