@@ -28,6 +28,14 @@ const Bar = styled.nav`
   border-bottom: 1px solid ${({ $scrolled }) => ($scrolled ? "var(--border)" : "transparent")};
   transition: padding 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 
+  /* While the mobile menu is open the bar sits on top of it, so drop
+     the scrolled backdrop to let the panel read as one surface. */
+  ${({ $open }) => $open && `
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  `}
+
   .logo {
     font-family: var(--font-heading);
     font-weight: 700;
@@ -72,11 +80,22 @@ const Bar = styled.nav`
 
   .menu-btn {
     display: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     color: var(--text);
     font-size: 1.4rem;
     cursor: pointer;
+  }
+
+  /* Both icons occupy the same spot while one fades out and the other in. */
+  .menu-btn span {
+    position: absolute;
+    display: flex;
   }
 
   @media (max-width: 800px) {
@@ -104,17 +123,6 @@ const MobilePanel = styled(motion.div)`
     color: var(--text);
 
     &.active { color: var(--accent); }
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 1.6rem;
-    right: 2rem;
-    background: none;
-    border: none;
-    color: var(--text);
-    font-size: 1.6rem;
-    cursor: pointer;
   }
 `;
 
@@ -147,12 +155,28 @@ const Navbar = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Lock page scroll behind the open menu, close it on Escape, and
+  // close it if the viewport grows past the mobile breakpoint.
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    const onResize = () => window.innerWidth > 800 && setOpen(false);
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open]);
+
   const handleClick = () => setOpen(false);
 
   return (
     <>
-      <Bar $scrolled={scrolled}>
-        <a href="#home" className="logo">
+      <Bar $scrolled={scrolled} $open={open}>
+        <a href="#home" className="logo" onClick={handleClick}>
           Tala<span>.</span>Osman
         </a>
 
@@ -168,12 +192,25 @@ const Navbar = () => {
           ))}
         </div>
 
+        {/* One toggle for both states: the bar sits above the panel, so a
+            separate close button inside the panel would show alongside it. */}
         <button
           className="menu-btn"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
+          onClick={() => setOpen((o) => !o)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
-          <FaBars />
+          <AnimatePresence initial={false}>
+            <motion.span
+              key={open ? "close" : "open"}
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.2 }}
+            >
+              {open ? <FaTimes /> : <FaBars />}
+            </motion.span>
+          </AnimatePresence>
         </button>
       </Bar>
 
@@ -185,13 +222,6 @@ const Navbar = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <button
-              className="close-btn"
-              onClick={() => setOpen(false)}
-              aria-label="Close menu"
-            >
-              <FaTimes />
-            </button>
             {links.map((l) => (
               <a
                 key={l.href}

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import GlobalStyle from "./globalStyles";
+import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import About from "./components/About";
@@ -11,43 +13,37 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./components/Loader.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading time or wait for resources
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  const handleLoaded = useCallback(() => setLoading(false), []);
 
   return (
     <>
-      {loading ? (
-        <div className="loader-container fade-in">
-          <div className="loader-content">
-            <h1 className="loader-title">Tala Osman</h1>
-            <div className="loading-bar">
-              <div className="progress"></div>
-            </div>
-            <p className="loading-text">Loading portfolio...</p>
-          </div>
-        </div>
-      ) : (
-        <div className="app fade-in">
-          <GlobalStyle />
-          <Navbar />
-          <Header />
-          <About />
-          <Experience />
-          <ProjectsList />
-          <Skills />
-          <Volunteer />
-          <Contact />
-          <Footer />
-        </div>
-      )}
+      {/* Mounted before the loader so it gets the site's fonts and colors. */}
+      <GlobalStyle />
+      <AnimatePresence mode="wait">
+        {loading ? (
+          <Loader key="loader" onDone={handleLoaded} />
+        ) : (
+          <motion.div
+            key="app"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <Navbar />
+            <Header />
+            <About />
+            <Experience />
+            <ProjectsList />
+            <Skills />
+            <Volunteer />
+            <Contact />
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
